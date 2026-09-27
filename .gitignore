@@ -1,0 +1,21 @@
+# Original evidence and bundled environment are preserved locally.
+/new/
+/catboost_info/
+/trainingmodels.py
+/.reconstruction/
+/.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+/build/
+/dist/
+/outputs/
+*.pkl
+*.csv
+*.pdf
+.env
+.env.*
+!.env.example
+.ipynb_checkpoints/
+.pytest_cache/
+*.log

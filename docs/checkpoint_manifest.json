@@ -1,0 +1,17 @@
+[
+  {
+    "name": "model_PreyashPratyush.pkl",
+    "bytes": 39093640,
+    "sha256": "d6e3e2e3bc9111e80205d78410dda43c587f6a9fba4805ba87f87e945fcebff4"
+  },
+  {
+    "name": "quantile_PreyashPratyush.pkl",
+    "bytes": 359878,
+    "sha256": "0eb959e4e330634525cbf969cd6895baaceaf68a02cb4d8838a77e3f5178824d"
+  },
+  {
+    "name": "others_PreyashPratyush.pkl",
+    "bytes": 1599,
+    "sha256": "b10d8d77f448503a0d7aca2a761ee24336d8e57df39a9a146beb85abe4646989"
+  }
+]
