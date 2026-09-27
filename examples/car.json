@@ -1,0 +1,5 @@
+{
+  "year": 2013, "make": "ford", "model": "f-150", "trim": "xlt",
+  "body": "supercrew", "transmission": "automatic", "state": "tx",
+  "condition": 4.0, "odometer": 53070.0, "color": "white", "interior": "black"
+}

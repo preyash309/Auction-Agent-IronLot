@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "car-auction-risk-agent"
+version = "0.1.0"
+description = "Used-car valuation and quantile-aware auction bidding research"
+requires-python = ">=3.10,<3.13"
+dependencies = [
+  "numpy==2.2.6", "pandas==2.3.3", "scipy==1.15.3",
+  "scikit-learn==1.7.2", "lightgbm==4.6.0",
+]
+
+[project.optional-dependencies]
+research = ["optuna==4.8.0", "gymnasium==1.3.0", "matplotlib==3.10.9", "seaborn==0.13.2", "catboost==1.2.10", "jupyterlab>=4,<5"]
+
+[project.scripts]
+auction-bot = "auction_bot.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["auction_bot*"]
