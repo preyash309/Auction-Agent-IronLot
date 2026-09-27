@@ -9,6 +9,7 @@ Excluded by `.gitignore`:
 - CSV datasets and cached predictions: provenance and redistribution rights unverified.
 - Pickle models/metadata: binaries, undocumented redistribution terms; trusted local loading only.
 - Original PDF: personal student identifiers, residence and email; technical findings documented separately.
+- IronLot bundle: model pickle files and report remain ignored; only final agent source, sanitized notebooks and documentation are published. Original notebook outputs/files have a separate private backup.
 - Training outputs, environments, caches, logs and editor artifacts: generated or machine-specific.
 
 No credential is required by the application. `.env.example` contains only a checkpoint path. Git commit metadata uses the account's GitHub noreply address locally; no global Git configuration was changed. Authentication tokens must stay in the normal credential store and must never enter a project file or log.

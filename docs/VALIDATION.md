@@ -2,7 +2,7 @@
 
 Reconstruction verified locally on Windows with Python 3.10.0, NumPy 2.2.6, pandas 2.3.3, SciPy 1.15.3, scikit-learn 1.7.2 and LightGBM 4.6.0. Commands were run from the repository root. CI's Linux/Python 3.10 and 3.12 matrix is configured; its remote outcome is not claimed here.
 
-## Executed checks
+## Initial reconstruction checks
 
 | Check | Actual outcome |
 |---|---|
@@ -53,3 +53,26 @@ Original-checkpoint simulation: 500 sampled cars, seed 42, 9 missing-identity sk
 ## Warnings and external limitations
 
 Legacy inference emits scikit-learn feature-name warnings because pipelines feed transformed arrays into LightGBM. Missing numeric values can trigger pandas' downcasting FutureWarning. They did not prevent execution or equality tests; pinned versions preserve current behavior. The 2016 infinite mileage feature remains intentionally unchanged. Original datasets/checkpoints, PDF and exact notebook outputs are local only; a fresh clone needs authorized data or trusted model files. Dataset provenance/rights, historical split IDs and Optuna study records remain unavailable.
+
+## IronLot environment and agent-training integration
+
+The later supplied `PreyashPratyush_IronLot/` folder contains seven files; all match the earlier submission copies by SHA256. The original final-agent source is unchanged. Notebook copies were sanitized and consolidated into that folder, with originals backed up separately. Binary checkpoints and the personal PDF remain local.
+
+The complete suite now has **17 tests**, all passing locally with original checkpoints and agent-training dependencies. With `.[agent-training]` installed but no private assets, 16 pass and one checkpoint test skips. With core dependencies only, seven environment tests also skip. New checks cover:
+
+- Original notebook versus adapted environment: exact reward, info and observation equality for controlled nonterminal win/loss transitions.
+- Historical objective versus supported policy formula, including a bankroll above the starting balance.
+- Gymnasium environment contract, seeded resets/noise and observation-space membership.
+- Safe termination on the final dataset row and rejection of steps after episode end.
+- Original bankruptcy penalty and rejected invalid actions/data.
+- Two independently persisted, identically seeded small Optuna studies with identical results; study/trial files and output protection verified.
+
+Executed cached-data smoke command:
+
+```powershell
+python -m auction_bot.optimize --data new/test.csv --output outputs/ironlot-smoke-integration --trials 2 --games 2 --rounds 10 --seed 42
+```
+
+It completed and saved `study.sqlite3`, `trials.csv` and `policy.json`. Mean final bankroll of its selected trial was **499972.1907827909**; selected alpha/beta/gamma were **0.9381218779 / 0.0780093202 / 0.0077997260**. These are small-run functional smoke results, not recommended deployment weights, external benchmarks or a reproduction of the original 500-trial study. Existing live-agent weights remain 0.1007 / 0.3792 / 0.0125. Input cache SHA256: `3218c8d0cae68e6d6dd0285c9f9710c967f25fcbf506c94ad6d022782d4ada2e`.
+
+Gymnasium's checker warns that the declared bid/observation spaces have infinite bounds, which is intentional for arbitrary monetary scales. The spaces contain tested observations and the checker passes. SQLite study connections are explicitly closed after export to avoid Windows file locks. CI now installs `.[agent-training]` and checks both `auction_bot` and `auction_bot.optimize` startup on Python 3.10/3.12.

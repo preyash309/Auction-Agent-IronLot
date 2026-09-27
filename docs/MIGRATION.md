@@ -4,7 +4,7 @@ No original source or research evidence was deleted. A verified full ZIP backup 
 
 | Original | New destination | Reason |
 |---|---|---|
-| `new/Test/agent_PreyashPratyush.py` | `auction_bot/agent.py`, `auction_bot/preprocessing.py`; verbatim `experiments/archive/submitted_agent.py` | Supported submission implementation, split into asset/bidding and preprocessing responsibilities |
+| `new/Test/agent_PreyashPratyush.py` | `auction_bot/agent.py`, `auction_bot/preprocessing.py`; verbatim `PreyashPratyush_IronLot/agent_PreyashPratyush.py` | Supported submission implementation, split into asset/bidding and preprocessing responsibilities |
 | `new/agent.py` | `experiments/archive/rare_string_agent.py` | Preserve divergent rare-feature typo outside supported flow |
 | `new/test.py` | `experiments/archive/price_frequency_rarity.py` | Meaningful earlier pricing feature alternative |
 | `new/test2.py` | `experiments/archive/noisy_rival_strategy.py` | Early opponent/tuning and Monte Carlo variant |
@@ -13,7 +13,7 @@ No original source or research evidence was deleted. A verified full ZIP backup 
 | `new/new_test.py`, `new/Test/new_test.py` | `experiments/archive/dataset_tournament.py`, `submission_tournament.py`; adapted `auction_bot/simulation.py` | Preserve originals and provide one seeded runnable simulation |
 | `new/agent_Example.py` | `experiments/archive/example_agent.py` | Example interface; missing example assets |
 | `trainingmodels.py` | `experiments/archive/conversion_classifier.py` | Unrelated classifier separated from auction workflow |
-| `new/Test/*.ipynb` | `experiments/notebooks/` | Preserve code/markdown, remove outputs/metadata and portable dataset path; original notebook evidence retained locally |
+| `new/Test/*.ipynb` and later supplied `PreyashPratyush_IronLot/*.ipynb` | `PreyashPratyush_IronLot/` | Canonical original submission notebooks; duplicates consolidated; code/markdown retained with outputs/metadata removed and portable data path |
 | Duplicate `new/` and `new/Test/` checkpoint triples | local `checkpoints/` plus `docs/checkpoint_manifest.json` | Hash-identical originals, compatible names retained; binaries excluded |
 | Duplicate car CSVs | local `data/car_auction_train.csv` | Hash-identical originals; data excluded |
 | `new/Test/report_PreyashPratyush.pdf` | local original/backup; technical findings in `EXPERIMENTS.md` | Contains personal identifiers; exclude from publication |
@@ -27,3 +27,11 @@ Inference feature formulas, submitted bidding coefficients, 500000 starting bank
 New training is a documented protocol, not a claim to reconstruct the exact lost split: seeded 80/20 row split, train-only imputation, separate price/quantile encoders, seeded target encoding, one LightGBM thread, saved row IDs/hash and no full-data refit. It retains feature definitions, selected price hyperparameters and the 0.1 quantile objective. Retrained checkpoints use the original names, but have different learned parameters and must be evaluated separately.
 
 Simulation retains English-auction opponent formulas and immediate resale from the submission harness, with explicit sampling/noise seeds, positive round validation, honest counts and surfaced errors. Original second-price/Gym variants remain archival and are not silently replaced by this simulation.
+
+## IronLot integration
+
+The later supplied `PreyashPratyush_IronLot/` contains seven files, all hash-identical to their previous `new/Test/` counterparts. A separate local backup and hash inventory were created before sanitization. Its agent source is now the canonical verbatim submission copy; the duplicate under `experiments/archive/submitted_agent.py` and duplicated notebooks under `experiments/notebooks/` were consolidated by Git-tracked moves, with references/tests updated. The new folder's pickle files and personal PDF remain local under existing ignores.
+
+`auction_bot/environment.py` derives the original `CarAuctionEnv` from the environment notebook. Reward, opponent noise, 500000 initial bankroll, rival+50 settlement, recent-50 win window and bankruptcy penalty remain intact. Seeding, explicit Gymnasium spaces, input validation, a terminal observation that avoids out-of-bounds indexing and a post-terminal step guard were added. The actual rival distribution is based on sellingprice despite narrative claims about volatility.
+
+`auction_bot/optimize.py` derives the original Optuna objective and ranges. Gamma still uses the historical `delta` trial name, mapped explicitly in `policy.json`. New searches use a seeded sampler, one worker and common per-game seeds, save the SQLite study/trials/parameters, and fold negative bid proposals to zero. The historical tuning penalty remains unclamped, preserving its difference from live inference. Existing deployed weights remain unchanged. These are reproducible new searches, not recovered original trial results.

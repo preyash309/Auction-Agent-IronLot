@@ -16,7 +16,7 @@ from auction_bot.training import fit_metadata, make_pipeline, prepare, train
 from auction_bot.simulation import simulate
 
 ROOT = Path(__file__).resolve().parents[1]
-spec = importlib.util.spec_from_file_location("historical", ROOT/"experiments/archive/submitted_agent.py")
+spec = importlib.util.spec_from_file_location("historical", ROOT/"PreyashPratyush_IronLot/agent_PreyashPratyush.py")
 historical = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(historical)
 ITEM = json.loads((ROOT/"examples/car.json").read_text())
